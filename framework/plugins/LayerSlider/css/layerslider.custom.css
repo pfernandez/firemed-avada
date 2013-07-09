@@ -1,0 +1,76 @@
+.ls-active .ls-st1 {
+	-webkit-transition: -webkit-transform 1.3s ease-out !important;
+	-moz-transition: -moz-transform 1.3s ease-out !important;
+	-o-transition: -o-transform 1.3s ease-out !important;
+	transition: transform 1.3s ease-out !important;	
+    -webkit-transform: rotate(360deg) !important;
+    -moz-transform: rotate(360deg) !important;
+    -o-transform: rotate(360deg) !important;
+    transform: rotate(360deg) !important;
+}
+
+.ls-active .ls-st2 {
+	-webkit-transition: -webkit-transform 1.3s ease-out .2s !important;
+	-moz-transition: -moz-transform 1.3s ease-out .2s !important;
+	-o-transition: -o-transform 1.3s ease-out .2s !important;
+	transition: transform 1.3s ease-out .2s !important;	
+    -webkit-transform: rotate(-360deg) !important;
+    -moz-transform: rotate(-360deg) !important;
+    -o-transform: rotate(-360deg) !important;
+    transform: rotate(-360deg) !important;
+}
+
+.ls-active .ls-st3 {
+	-webkit-transition: -webkit-transform 1.3s ease-out .4s !important;
+	-moz-transition: -moz-transform 1.3s ease-out .4s !important;
+	-o-transition: -o-transform 1.3s ease-out .4s !important;
+	transition: transform 1.3s ease-out .4s !important;	
+    -webkit-transform: rotate(360deg) !important;
+    -moz-transform: rotate(360deg) !important;
+    -o-transform: rotate(360deg) !important;
+    transform: rotate(360deg) !important;
+}
+
+.ls-active .ls-st4 {
+	-webkit-transition: -webkit-transform 1.3s ease-out .6s !important;
+	-moz-transition: -moz-transform 1.3s ease-out .6s !important;
+	-o-transition: -o-transform 1.3s ease-out .6s !important;
+	transition: transform 1.3s ease-out .6s !important;	
+    -webkit-transform: rotate(-360deg) !important;
+    -moz-transform: rotate(-360deg) !important;
+    -o-transform: rotate(-360deg) !important;
+    transform: rotate(-360deg) !important;
+}
+
+.ls-active .ls-st5 {
+	-webkit-transition: -webkit-transform 1.3s ease-out .8s !important;
+	-moz-transition: -moz-transform 1.3s ease-out .8s !important;
+	-o-transition: -o-transform 1.3s ease-out .8s !important;
+	transition: transform 1.3s ease-out .8s !important;	
+    -webkit-transform: rotate(360deg) !important;
+    -moz-transform: rotate(360deg) !important;
+    -o-transform: rotate(360deg) !important;
+    transform: rotate(360deg) !important;
+}
+
+.ls-active .ls-st6 {
+	-webkit-transition: -webkit-transform 1.3s ease-out 1s !important;
+	-moz-transition: -moz-transform 1.3s ease-out 1s !important;
+	-o-transition: -o-transform 1.3s ease-out 1s !important;
+	transition: transform 1.3s ease-out 1s !important;	
+    -webkit-transform: rotate(-360deg) !important;
+    -moz-transform: rotate(-360deg) !important;
+    -o-transform: rotate(-360deg) !important;
+    transform: rotate(-360deg) !important;
+}
+
+.ls-active .ls-st7 {
+	-webkit-transition: -webkit-transform 1.3s ease-out 1.2s !important;
+	-moz-transition: -moz-transform 1.3s ease-out 1.2s !important;
+	-o-transition: -o-transform 1.3s ease-out 1.2s !important;
+	transition: transform 1.3s ease-out 1.2s !important;	
+    -webkit-transform: rotate(360deg) !important;
+    -moz-transform: rotate(360deg) !important;
+    -o-transform: rotate(360deg) !important;
+    transform: rotate(360deg) !important;
+}

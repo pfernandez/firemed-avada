@@ -1,0 +1,323 @@
+/****** JOIN WIZARD ******/
+.page-id-47 .page-title-container {
+  display: none;
+}
+
+form {
+  font-size: 17px;
+}
+
+input[type=submit],
+input[type=text],
+input[type=password],
+input[type=file],
+input[type=email],
+textarea {
+  margin-bottom: 0;
+}
+
+#accordion {
+  margin: 0 auto;
+  width: 100%;
+}
+
+#accordion h1 {
+  color: #5ca5da !important;
+  cursor: pointer;
+  font: 32px 'Museo 500', Arial, sans-serif;
+  margin-bottom: 10px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+#accordion h1.current {
+  cursor: default;
+}
+
+#accordion > p {
+  font-size: 18px;
+
+  -webkit-margin-before: 0;
+}
+
+.pane {
+  border-bottom: 1px solid #444;
+  padding-bottom: 40px;
+  display: none;
+}
+
+/****** END JOIN WIZARD ******/
+
+/****** MEMBERSHIP OPTIONS ******/
+#step1-pane {
+  padding-bottom: 3px;
+}
+
+.active {
+  box-shadow: 0 0 0 4px #FF1422 inset, -2px 2px 5px rgba(50, 50, 50, 0.25);
+}
+
+/****** PROMOTIONAL CODE *****/
+#step2-pane .icons-check {
+  display: block;
+  height: 22px;
+  width: 26px;
+}
+
+#step2-pane .form-response {
+  float: left;
+  line-height: 40px;
+  margin-left: 10px;
+}
+
+#s2member-pro-paypal-checkout-coupon {
+  float: left;
+  width: 240px;
+}
+
+/****** CONTACT SECTION ******/
+#contact-section {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  box-shadow: 0px 1px 0px #fff;
+}
+
+/***** FAMILY SECTION ******/
+.householdLabel{
+  padding-top: 45px;
+}
+
+.member {
+  margin-top:10px;
+}
+
+.member label{
+  float: left;
+}
+
+.member input {
+  margin-right: 20px;
+}
+
+.member label span {
+  margin-top: 10px;
+}
+
+.member input[class*="first-name"] {
+  width: 177px;
+}
+
+.member input[class*="middle-initial"] {
+  width: 40px;
+}
+
+.member input[class*="last-name"] {
+  width: 240px;
+}
+
+.member input[class*="dob"] {
+  width: 177px;
+}
+
+#add-family-member {
+  margin: 25px 0;
+}
+
+/****** BILLING ******/
+
+#step4-pane {
+  padding-bottom: 0px;
+}
+
+form select {
+  padding: 10px 5px;
+  height: 44px;
+}
+
+#card-type ul {
+  margin: 0;
+  padding: 0;
+}
+
+#card-type li {
+  float: left;
+  height: 30px;
+  list-style: none;
+  margin: 0 10px 0 0;
+  text-indent: -99999px;
+  width: 50px;
+  padding-bottom: 0;
+}
+
+#card-type label span {
+  margin: 0;
+  height: 30px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.card-type-label {
+  padding-bottom: 12px;
+}
+
+#card-type li input {
+  margin-left: -99999px;
+}
+
+.complete .memberOption {
+  opacity: 0.5;
+}
+.complete .memberOption.active {
+  opacity: 1;
+  background: #fff;
+}
+
+.complete .memberOption:hover {
+  opacity: 1;
+  background-color: #efefef;
+}
+
+div.memberOption {
+  cursor: pointer;
+}
+
+div.memberOption input {
+  display:none;
+}
+
+#card-type .card-type-mastercard {
+  background: url('../images/icons/plastic-mastercard.png') no-repeat 0 0;
+}
+
+#card-type .card-type-visa {
+  background: url('../images/icons/plastic-visa.png') no-repeat 0 0;
+}
+
+#card-type .card-type-amex {
+  background: url('../images/icons/plastic-amex.png') no-repeat 0 0;
+}
+
+#card-type .card-type-discover {
+  background: url('../images/icons/plastic-discover.png') no-repeat 0 0;
+}
+
+#billing-address-section {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  box-shadow: 0px 1px 0px #fff;
+}
+
+label[for*="card-cvv"] span a {
+  background: url("../images/icons/question.png") no-repeat 0 0;
+  bottom: 2px;
+  float: right;
+  height: 20px;
+  position: relative;
+  text-indent: -99999px;
+  width: 21px;
+}
+
+#form-submission-section {
+  border-top: 1px solid #444;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding-top: 25px;
+}
+
+#checkout-submit {
+  float: left;
+}
+
+.form-response {
+  float: left;
+  margin-left: 40px;
+}
+
+.form-response div {
+  border: 0;
+  background: none;
+  color: #ee2f27 !important;
+  font-family: "Museo 700", Arial, sans-serif;
+}
+
+#order-summary {
+  width: 325px;
+  line-height: 27px;
+}
+
+#order-summary h2 {
+  border-bottom: 1px solid #ccc;
+  color: #5ca5da;
+  font: 24px "Museo 700", Arial, sans-serif;
+  margin-top: 53px;
+  padding-bottom: 8px;
+  box-shadow: 0px 1px 0px #fff;
+}
+
+#order-summary h3 {
+  color: #444;
+  font: 16px "Museo 300", Arial, sans-serif;
+}
+
+#order-summary .checkout-total {
+  font-family: "Museo 700", Arial, sans-serif;
+}
+
+#order-summary .promo-discount {
+  color: #ee2f27;
+}
+
+#order-summary .household-members,
+#order-summary .order-meta {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  box-shadow: 0px 1px 0px #fff;
+}
+
+#order-summary .household-members div span,
+#order-summary .order-meta div span,
+#order-summary .checkout-total div span {
+  float: right;
+}
+
+.icons-question {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin-bottom: -5px;
+}
+
+.tooltip {
+  position: absolute;
+  display: none;
+  font-size: 12px;
+  height: 48px;
+  width: 170px;
+  padding: 10px;
+  text-align: center;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(86, 86, 86);
+  border-radius: 5px;
+  text-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 1px;
+  box-shadow: rgba(0, 0, 0, 0.0980392) 1px 1px 2px 0px;
+  margin-bottom: 20px;
+}
+
+.reqError {
+  -moz-box-shadow:inset 0px 0px 5px 1px #ff0000 !important;
+  -webkit-box-shadow:inset 0px 0px 5px 1px #ff0000 !important;
+  box-shadow:inset 0px 0px 5px 1px #ff0000 !important;
+}
+
+select.reqError {
+  border: 3px solid #ff0000 !important;
+}
+
+.cardSelected {
+  border: 2px solid #5ca5da;
+}
+
+

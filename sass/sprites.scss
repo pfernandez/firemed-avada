@@ -1,0 +1,23 @@
+$icons-spacing: 2px;
+$sprites-sprite-dimensions: true;
+
+@import "icons/*.png";
+@include all-icons-sprites;
+
+// List of icons with blue hover states
+$hover-blue-icons: (
+  "dollar",
+  "gear",
+  "home-inverted",
+  "profile"
+);
+
+@mixin hover-blue($sprite) {
+  .icon-#{$sprite}:hover {
+    @include icons-sprite('#{$sprite}-blue');
+  }
+}
+
+@each $icon in $hover-blue-icons {
+  @include hover-blue($icon);
+}
