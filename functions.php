@@ -1,4 +1,70 @@
 <?php
+
+
+
+/**
+ * Register and enqueue the requred CSS and Javascript.
+
+function custom_styles_scripts() {
+
+    $theme_uri = get_template_directory_uri();
+    
+    // CSS files to be added.
+    wp_register_style( 'custom-css', $theme_uri . '/css/custom.css' );
+    wp_register_style( 'sprites-css', $theme_uri . '/css/sprites.css' );
+    wp_enqueue_style( 'custom-css' );
+    wp_enqueue_style( 'sprites-css' );
+    
+    // Javascript files to be added.
+    wp_register_script(
+        'scrollerReady',
+        $theme_uri . '/js/scrollerReady.js',
+        array(),
+        false,
+        true
+    );
+    wp_register_script('boxSelecter',
+        $theme_uri . '/js/memberOptionSelectBox.js', 
+        array( 'jquery' ),
+        false,
+        true
+    );
+    // wp_register_script( 'custom-js', $theme_uri . '/js/custom.js', array( 'jquery' ) );
+	wp_enqueue_script( 'scrollerReady' );
+	wp_enqueue_script( 'boxSelecter' );
+	// wp_enqueue_script( 'custom-js' );
+	
+	// Make some PHP data available to our custom Javascript file.
+	// $data = array( 'url' => __( $theme_uri ) );
+	// wp_localize_script('custom-js', 'SiteData', $data);
+	
+	// Conditional styles/scripts
+	if( is_page_template(  'join.php') ) {
+	    wp_register_style( 'join-css', $theme_uri . '/css/join.css', array() );
+        wp_enqueue_style( 'join-css' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'custom_styles_scripts' );
+ */
+
+
+function admin_css_tweaks() {
+   echo '<style type="text/css">
+            table.wp-list-table.widefat.fixed.users {
+              table-layout: auto;
+            }
+         </style>';
+}
+add_action('admin_head', 'admin_css_tweaks');
+
+
+
+
+/**
+ * Begin code dded by Mindbox Studios.
+ **************************************************************************************************/
+
+
 //Stop wp from auto wrapping lines in p tags
 remove_filter('the_content', 'wpautop');
 
@@ -38,6 +104,12 @@ add_action('wpcf7_mail_sent', 'wpcf7_send_to_mailchimp', 1);
 if (function_exists('st_makeEntries')) {
   add_shortcode('sharethis', 'st_makeEntries');
 }
+
+/**
+ * End code added by Mindbox Studios.
+ **************************************************************************************************/
+
+
 
 // Translation
 load_theme_textdomain('Avada', TEMPLATEPATH.'/languages');

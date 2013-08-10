@@ -212,7 +212,8 @@ h5.toggle a {
   background: none repeat scroll 0 0 transparent;
   border: 0 none;
   color: #FFFFFF !important;
-  font: 14px 'PTSansRegular',Arial,Helvetica,sans-serif;
+  /* font: 14px 'PTSansRegular',Arial,Helvetica,sans-serif; */
+  font-family: 'Museo 500', Arial, sans-serif;
   height: auto;
   padding: 6px 20px;
   text-indent: 0;
@@ -442,11 +443,11 @@ ul.sub-menu li a {
   -moz-background-clip: padding;     /* Firefox 3.6 */
   -webkit-background-clip: padding;  /* Safari 4? Chrome 6? */
   background-clip: padding-box;      /* Firefox 4, Safari 5, Opera 10, IE 9 */
-
-  -moz-background-clip: content;     /* Firefox 3.6 */
-  -webkit-background-clip: content;  /* Safari 4? Chrome 6? */
+/*
+  -moz-background-clip: content;
+  -webkit-background-clip: content;
   background-clip: content-box;
-
+*/
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -752,7 +753,7 @@ ul.sub-menu li a {
 
 .memberOption .button {
   background-color: #f7f7e4;
-  background: #5191C0\9;
+  background: #5191C0;
   background-image: linear-gradient(to top, #5191c0, #5ca5da);
   background-image: -moz-linear-gradient(bottom, #5191c0, #5ca5da);
   background-image: -ms-linear-gradient(bottom, #5191c0, #5ca5da);
@@ -1018,13 +1019,13 @@ label span {
 
 }
 
-label[for="mailing-same-as-home"] span {
+label[for="billing-same-as-home"] span {
   display: inline;
   font-size: 14px;
 }
 
-label[for="mailing-same-as-home"] {
-  margin: 35px 0;
+label[for="billing-same-as-home"] {
+  margin: 1em 0;
   display: block;
 }
 

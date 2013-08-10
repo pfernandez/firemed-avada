@@ -16,6 +16,10 @@ textarea {
   margin-bottom: 0;
 }
 
+form.s2member-pro-paypal-form p {
+  line-height: 20px;
+}
+
 #accordion {
   margin: 0 auto;
   width: 100%;
@@ -23,10 +27,10 @@ textarea {
 
 #accordion h1 {
   color: #5ca5da !important;
-  cursor: pointer;
-  font: 32px 'Museo 500', Arial, sans-serif;
-  margin-bottom: 10px;
-  padding-top: 8px;
+  /* cursor: pointer; removing to prevent click-ahead */
+  font: 32px/32px 'Museo 500', Arial, sans-serif;
+  padding-top: 4px;
+  margin-bottom: 0;
   width: 100%;
 }
 
@@ -42,7 +46,7 @@ textarea {
 
 .pane {
   border-bottom: 1px solid #444;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
   display: none;
 }
 
@@ -50,7 +54,11 @@ textarea {
 
 /****** MEMBERSHIP OPTIONS ******/
 #step1-pane {
-  padding-bottom: 3px;
+  padding-bottom: 0;
+}
+
+.membershipOptions .one_third {
+  margin-bottom: 15px;
 }
 
 .active {
@@ -58,6 +66,10 @@ textarea {
 }
 
 /****** PROMOTIONAL CODE *****/
+#step2-pane {
+  padding-top: 5px;
+}
+
 #step2-pane .icons-check {
   display: block;
   height: 22px;
@@ -73,23 +85,64 @@ textarea {
 #s2member-pro-paypal-checkout-coupon {
   float: left;
   width: 240px;
+  margin-bottom: 20px;
+}
+
+#member-code-yes-no {
+  display: none; /* revealed with js */
+}
+
+#member-code-yes-no .button {
+  background-color: #f7f7e4;
+  background: #5191C0;
+  background-image: linear-gradient(to top, #5191c0, #5ca5da);
+  background-image: -moz-linear-gradient(bottom, #5191c0, #5ca5da);
+  background-image: -ms-linear-gradient(bottom, #5191c0, #5ca5da);
+  background-image: -o-linear-gradient(bottom, #5191c0, #5ca5da);
+  background-image: -webkit-linear-gradient(bottom, #5191c0, #5ca5da);
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(2,2,2,.4), inset 0 17px rgba(255,255,255,.09);
+  color: #fefefe !important;
+  font-family: "Museo 500", sans-serif;
+  font-size: 18px;
+  height: 32px;
+  line-height: 36px;
+  line-height: 32\9px;
+  text-shadow: 0 -1px rgba(2,2,2,.4);
+  width: 82px;
+
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-box-shadow: 0 1px 1px rgba(2,2,2,.4), inset 0 17px rgba(255,255,255,.09);
+  -webkit-box-shadow: 0 1px 1px rgba(2,2,2,.4), inset 0 17px rgba(255,255,255,.09);
+
+  cursor: pointer;
+  border: none;
 }
 
 /****** CONTACT SECTION ******/
 #contact-section {
   border-bottom: 1px solid #ccc;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
+  margin-bottom: 25px;
   box-shadow: 0px 1px 0px #fff;
+}
+
+#contact-section #email {
+  width: 240px;
+}
+
+div label[for*="city"] {
+  width: 280px;
+}
+
+div input[id*="city"] {
+  width: 246px;
 }
 
 /***** FAMILY SECTION ******/
 .householdLabel{
   padding-top: 45px;
-}
-
-.member {
-  margin-top:10px;
+  padding-left: 15px;
 }
 
 .member label{
@@ -120,8 +173,12 @@ textarea {
   width: 177px;
 }
 
+#family-section .member-first-name {
+  width: 207px;
+}
+
 #add-family-member {
-  margin: 25px 0;
+  margin: 10px 0 15px 0;
 }
 
 /****** BILLING ******/
@@ -135,6 +192,10 @@ form select {
   height: 44px;
 }
 
+#card-type {
+  margin: 15px 0 0 2px;
+}
+
 #card-type ul {
   margin: 0;
   padding: 0;
@@ -144,17 +205,24 @@ form select {
   float: left;
   height: 30px;
   list-style: none;
-  margin: 0 10px 0 0;
+  margin: 0 11px 0 0;
   text-indent: -99999px;
   width: 50px;
   padding-bottom: 0;
+}
+
+#card-type li.active {
+  box-shadow: none;
+}
+
+#card-type li:not(.active) {
+  opacity: 0.6;
 }
 
 #card-type label span {
   margin: 0;
   height: 30px;
   width: 50px;
-  cursor: pointer;
 }
 
 .card-type-label {
@@ -163,6 +231,18 @@ form select {
 
 #card-type li input {
   margin-left: -99999px;
+}
+
+div label[for*="card-number"] {
+  width: 237px;
+}
+
+div label[for*="card-expiration"] {
+  margin-right: 0;
+}
+
+div input[id*="card-number"] {
+  width: 213px;
 }
 
 .complete .memberOption {
@@ -183,7 +263,7 @@ div.memberOption {
 }
 
 div.memberOption input {
-  display:none;
+  display: none;
 }
 
 #card-type .card-type-mastercard {
@@ -203,10 +283,15 @@ div.memberOption input {
 }
 
 #billing-address-section {
+  width: 474px;
   border-bottom: 1px solid #ccc;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
+  margin-bottom: 20px;
+  padding-bottom: 25px;
   box-shadow: 0px 1px 0px #fff;
+}
+
+div label[for*="zip"], #billing-address-zip {
+  margin-right: 0;
 }
 
 label[for*="card-cvv"] span a {
@@ -222,7 +307,7 @@ label[for*="card-cvv"] span a {
 #form-submission-section {
   border-top: 1px solid #444;
   margin-bottom: 40px;
-  margin-top: 20px;
+  margin-top: 5px;
   padding-top: 25px;
 }
 
@@ -244,19 +329,20 @@ label[for*="card-cvv"] span a {
 
 #order-summary {
   width: 325px;
-  line-height: 27px;
+  line-height: 25px;
 }
 
 #order-summary h2 {
   border-bottom: 1px solid #ccc;
   color: #5ca5da;
   font: 24px "Museo 700", Arial, sans-serif;
-  margin-top: 53px;
+  margin-top: 15px;
   padding-bottom: 8px;
   box-shadow: 0px 1px 0px #fff;
 }
 
 #order-summary h3 {
+  margin-bottom: 10px;
   color: #444;
   font: 16px "Museo 300", Arial, sans-serif;
 }
@@ -273,7 +359,7 @@ label[for*="card-cvv"] span a {
 #order-summary .order-meta {
   border-bottom: 1px solid #ccc;
   margin-bottom: 16px;
-  padding-bottom: 16px;
+  padding-bottom: 10px;
   box-shadow: 0px 1px 0px #fff;
 }
 
@@ -318,6 +404,44 @@ select.reqError {
 
 .cardSelected {
   border: 2px solid #5ca5da;
+}
+
+#page-bottom-response {
+  display: none;
+  position: fixed;
+  left: 5%;
+  top: 30%;
+  right: 5%;
+  margin: 0;
+  text-align: center;
+  background-color: #fff;
+  padding: 1.5em;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(2,2,2,.25);
+}
+
+#page-bottom-response:after {
+  content: "x";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font: lighter 18px/10px Verdana, Geneva, sans-serif;
+  color: rgba(0,0,0,.35);
+}
+
+@media only screen and (max-width: 800px) {
+
+  .family-member {
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-width: 507px) and (max-width: 627px) {
+
+  .householdLabel {
+    padding-top: 0;
+    padding-left: 0;
+  }
 }
 
 

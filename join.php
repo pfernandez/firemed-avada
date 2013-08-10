@@ -1,7 +1,13 @@
 <?php
-// Template Name: Join
+/**
+ * Template Name: Join
+ *
+ * Mostly written by Edan Shwartz https://github.com/eschwartz
+ * Finished up by Paul Ferandez https://github.com/pfernandez
+ */
 
 get_header(); ?>
+
   <div id="content" class="full-width">
     <?php
       $level = isset($_POST['s2member_pro_paypal_checkout']['membership']) ? $_POST['s2member_pro_paypal_checkout']['membership'] : 1;
@@ -32,7 +38,7 @@ get_header(); ?>
         accept_coupons="1"
         default_country_code="US"
         captcha="0"
-        success="/signup-thank-you"
+        success="/signup-thank-you/"
       /]');
     ?>
   </div>
@@ -43,7 +49,7 @@ get_header(); ?>
 //wp_enqueue_script('jquerytools', 'cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js', array( 'jquery' ), '1.2.7', true);
 
 get_footer(); ?>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 <script src="//cdn.jquerytools.org/1.2.7/full/jquery.tools.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
@@ -65,6 +71,23 @@ get_footer(); ?>
 ?>
 <script>
 
+  // Form-submitted response text tweaks.
+  var responseDiv = $('#page-bottom-response');
+  var responseText = responseDiv.text();
+  if( responseText ) {
+
+    if( responseText.toLowerCase().indexOf("thank you") >= 0 ) {
+      // Go to thank you page after PayPal confirmation; s2Member redirect isn't working.
+      window.location.replace("<?php echo site_url('signup-thank-you'); ?>");
+    }
+    else {
+      responseDiv.fadeIn().click(function() {
+        $(this).fadeOut();
+      });
+    }
+  }
+    
+    
   var JoinFormApp = (function() {
 
     // Membership levels
@@ -99,7 +122,6 @@ get_footer(); ?>
         this.on("change:discount", function() {
           this.normalizeCurrencyAttr("discount");
         }, this);
-
         this.on("change:cost", function() {
           this.normalizeCurrencyAttr("cost");
         }, this);
@@ -191,8 +213,11 @@ get_footer(); ?>
       },
 
       baseEvents: {
-        'click.base openBtn': 'show',
-        'change.base formFields': 'handleChange'
+        'change.base formFields': 'handleChange',
+        
+        // Removing this to prevent opening subforms by click subform titles.
+        // We want users to complete the steps in order.
+        //'click.base openBtn': 'show'
       },
 
       _configure: function() {
@@ -232,9 +257,9 @@ get_footer(); ?>
         this.validator = this.ui.formFields.data("validator");
       },
 
-    show: function(ops) {
-      var self = this;
-      var o = $.extend({},{
+      show: function(ops) {
+        var self = this;
+        var o = $.extend({},{
           scrollTo: true,
           scrollTarget: self.$el.offset().top - 150
         }, ops);
@@ -252,10 +277,19 @@ get_footer(); ?>
         this.ui.contentRegion.hide();
       },
 
-      renderErrors: function(errors) {
+      renderErrors: function(errors) {      
         _.each(errors, function(error) {
           error.el.addClass(this.errorClass);
         }, this);
+      },
+      
+      scrollToErrors: function() {
+        // Scroll to the first error field.
+        $.scrollTo(
+          $(".reqError").filter(":first"),
+          200,
+          { offset: -($("#header").height() + 100) }
+        );
       },
 
       // Something we all need to learn how to do...
@@ -540,7 +574,7 @@ get_footer(); ?>
       id: 0,
 
       ui: {
-        fields: 'input[type=text]'
+        fields: 'input[type=text], select'
       },
 
       render: function() {
@@ -573,13 +607,6 @@ get_footer(); ?>
       el: $('#step3'),
 
       ui: {
-        useSameAddress: '#mailing-same-as-home',
-
-        street_mail: '#mailing-address-street',
-        city_mail: '#mailing-address-city',
-        state_mail: '#mailing-address-state',
-        zip_mail: '#mailing-address-zip',
-
         street_home: '#home-address-street',
         city_home: '#home-address-city',
         state_home: '#home-address-state',
@@ -589,62 +616,29 @@ get_footer(); ?>
         familyMemberRowsRegion: '#familyMemberRowsRegion',    // Wrapper around rows
         familyFormSection: '#family-section',                 // The entire form, surrounding text, etc
         addFamilyMemberBtn: '#add-family-member',
+        
+        hoh_dob: '#hoh-dob',
+        hoh_dob_month: '#hoh-dob .dob-month',
+        hoh_dob_day: '#hoh-dob .dob-day',
+        hoh_dob_year: '#hoh-dob .dob-year',
+        hoh_dob_input: '#hoh-dob-input',
+        family_dob: '.family-member-dob',
 
         submitBtn: '.continueBtn'
       },
-
-      // map mailing to home address fields
-      // for easy transfer
-      mailHomeUIMap: {
-        'street_mail': 'street_home',
-        'city_mail': 'city_home',
-        'state_mail': 'state_home',
-        'zip_mail': 'zip_home'
-      },
-
-      mailUI: [
-        'street_mail',
-        'city_mail',
-        'state_mail',
-        'zip_mail'
-      ],
 
       familyMemberLimit: 19,
       familyMemberRows: '#familyMemberRowsRegion .member',
       familyMemberChildren: [],       // child views
 
       events: {
-        'change useSameAddress': 'handleUseSameAddress',
-        'click submitBtn': 'handleSubmit',
         'click addFamilyMemberBtn': 'addFamilyMember',
-
-        // Uncheck "copy" box, if changes occur
-        'change homeFields': 'handleUseSameAddress'
+        'click submitBtn': 'handleSubmit'
       },
 
       initialize: function() {
         // Add the first member row
         this.openFamilyForm();
-
-        // Combine mail and home fields
-        // Note: uiBindings are the original selectors (not $ objects)
-        this.uiBindings.mailFields = [
-          this.uiBindings.street_mail,
-          this.uiBindings.city_mail,
-          this.uiBindings.state_mail,
-          this.uiBindings.zip_mail
-        ].join(", ");
-
-        this.uiBindings.homeFields = [
-          this.uiBindings.street_home,
-          this.uiBindings.city_home,
-          this.uiBindings.state_home,
-          this.uiBindings.zip_home
-        ].join(", ");
-
-        // Delegate events for these new UIs
-        this.bindUIElements();
-        this.delegateEvents();
       },
 
       addFamilyMember: function() {
@@ -717,31 +711,51 @@ get_footer(); ?>
         // Update this.ui
         this.bindUIElements();
       },
-
-      copyMailToHome: function() {
-        for(var mail in this.mailHomeUIMap) {
-          var $mail = this.ui[mail];
-          var $home = this.ui[this.mailHomeUIMap[mail]];
-
-          $mail.val($home.val());
-          $mail.trigger('change');
-        }
-      },
-
-      handleUseSameAddress: function(evt) {
-        if(this.ui.useSameAddress.is(":checked")) {
-          this.copyMailToHome();
-        }
+      
+      // Combines birthdate dropdown selections into
+      // a single string in a hidden field
+      combineDOB: function() {
+      
+        var memberDOB = [
+          this.ui.hoh_dob_month.val(),
+          this.ui.hoh_dob_day.val(),
+          this.ui.hoh_dob_year.val()
+        ].join('/');
+        this.ui.hoh_dob_input.val(memberDOB);
+        
+        this.ui.family_dob.each(function() {
+        
+          var label = $(this);
+          var familyDOB = new Array();
+          
+          label.find('select').each(function() {
+            var selected = $(this);
+            
+            // Temp hack until I figure out how to validate these
+            // dynamically created fields.
+            if(!selected.val())
+              selected.addClass('reqError');
+            else
+              selected.removeClass('reqError');
+            
+            familyDOB.push(selected.val());
+          });
+          label.find('.member-dob').val(familyDOB.join('/'));
+        });
       },
 
       handleSubmit: function() {
+      
+        this.combineDOB();
         this.removeEmptyFamilyMemberRows();
-
+        
         if(this.validate()) {
           App.formModel.update(this.ui.formFields);
           Backbone.trigger("form:subform:complete", this.step);
         }
-
+        else {
+          this.scrollToErrors();
+        }
         return false;
       }
 
@@ -760,15 +774,28 @@ get_footer(); ?>
       template: '#template-orderSummary',
 
       ui: {
-        summaryRegion: '#order-summary',
+        useSameAddress: '#billing-same-as-home',
+
+        street_billing: '#billing-address-street',
+        city_billing: '#billing-address-city',
+        state_billing: '#state',
+        zip_billing: '#billing-address-zip',
+        
         creditCards: '#card-type li',
-        creditCard: '#card-type li input',
-        creditCardsParent: '#card-type',
+        creditCardNumber: '#billing-method-card-number',
+        mastercard: '#card-type-mastercard',
+        visa: '#card-type-visa',
+        amex: '#card-type-amex',
+        discover: '#card-type-discover',
+        
+        summaryRegion: '#order-summary',
         submitBtn: '#checkout-submit'
       },
 
       events: {
-        'click creditCards': 'handleCardClick',
+        'change useSameAddress': 'handleUseSameAddress',
+        'change creditCardNumber': 'handleCardEntered',
+        'keyup creditCardNumber': 'handleCardEntered',
         'click submitBtn': 'handleSubmit'
       },
 
@@ -778,49 +805,68 @@ get_footer(); ?>
         this.listenTo(App.formModel, "all", this.renderSummary);
       },
 
-      handleCardClick: function(evt) {
-        var $input = $(evt.currentTarget).find('input[name="s2member_pro_paypal_checkout[card_type]"]');
+      // Copy the home address fields into the billing address fields.
+      copyHomeToBilling: function() {
+      
+        var homeFields = App.formModel.attributes.custom_fields;
+        var billingHomeMap = {
+          'street_billing': homeFields.home_address_street,
+          'city_billing': homeFields.home_address_city,
+          'state_billing': homeFields.home_address_state,
+          'zip_billing': homeFields.home_address_zip
+        };
+        
+        for(var billing in billingHomeMap) {
+          var $billing = this.ui[billing];
+          $billing.val(billingHomeMap[billing]);
+          $billing.trigger('change');
+        }
+      },
 
-        // Bind to hidden form field
-        $input.prop("checked", true);
-
-        // Show active
+      handleUseSameAddress: function(evt) {
+        if(this.ui.useSameAddress.is(":checked")) {
+          this.copyHomeToBilling();
+        }
+      },
+      
+      // Auto-detect the credit card type and highlight the result.
+      handleCardEntered: function(evt) {
+      
+        var accountNumber = evt.target.value;
         this.ui.creditCards.removeClass('active');
-        $input.parents('li').addClass('active');
-
-        // Remove error class
-        this.ui.creditCards.removeClass(this.errorClass);
-        this.ui.creditCardsParent.removeClass(this.errorClass);
+        
+        // Test for valid card type
+        var validCard = false;
+        if (/^5[1-5][0-9]{14}$/.test(accountNumber))
+          validCard = this.ui.mastercard;
+        else if (/^4[0-9]{12}(?:[0-9]{3})?$/.test(accountNumber))
+          validCard = this.ui.visa;
+        else if (/^3[47][0-9]{13}$/.test(accountNumber))
+          validCard = this.ui.amex;
+        else if (/^6(?:011|5[0-9]{2})[0-9]{12}$/.test(accountNumber))
+          validCard = this.ui.discover;
+        
+        if(validCard) {
+          // Check radio field add add active class
+          validCard.prop('checked', true);
+          validCard.parents('li').addClass('active');
+        }
+        
       },
 
-      renderErrors: function(errors) {
-        // Some hackish rendering of cc type error
-        // Someday, we'll use a real client-side validation framework on this form...
-        var $ccTypeFields = this.ui.creditCards.find("input");
-        var self = this;
-
-        // Add error class, if no ccs are checked
-        this.ui.creditCards.addClass(this.errorClass);
-        this.ui.creditCardsParent.addClass(this.errorClass);
-        $ccTypeFields.each(function() {
-          if($(this).prop("checked")) {
-            self.ui.creditCards.removeClass(self.errorClass);
-            self.ui.creditCardsParent.removeClass(self.errorClass);
-          }
-        });
-        App.SubForm.prototype.renderErrors.apply(this, arguments);
+      // Combine credit card expiration dropdowns into a single hidden field.
+      combineCCExp: function() {
+        $('#billing-method-card-expiration').val(
+          $('#cc-exp-day').val() + '/' + $('#cc-exp-year').val()
+        );
       },
-
-      clearErrors: function() {
-        this.ui.creditCards.removeClass(this.errorClass);
-        App.SubForm.prototype.clearErrors.apply(this, arguments);
-      },
-
+      
       handleSubmit: function(evt) {
+      
+        this.combineCCExp();
+      
         if(!this.validate()) {
-          if($(this.ui.creditCard[0]).hasClass(this.errorClass)) {
-            this.ui.creditCardsParent.addClass(this.errorClass);
-          }
+          this.scrollToErrors();
           return false;
         }
       },
@@ -868,6 +914,7 @@ get_footer(); ?>
         this.openFormStep(1);
       },
 
+      // Instantiate each subform within the subFormControllers object.
       bindFormControllers: function() {
         // Save, if ever needed
         this.subFormControllerBindings = this.subFormControllers;
@@ -879,6 +926,7 @@ get_footer(); ?>
         }
       },
 
+      // Render the subforms on the page.
       openFormStep: function(step, ops) {
         if(!this.subFormControllers[step]) {
           throw new Error("Subform '" + step + "' is not defined");
@@ -895,6 +943,7 @@ get_footer(); ?>
         this.currentStep = Math.max(step, this.currentStep);
       },
 
+      // Move on to the next step when a subform is completed.
       handleFormComplete: function(completedStep) {
         this.openFormStep(completedStep + 1);
       },
@@ -917,8 +966,8 @@ get_footer(); ?>
         if(!valid) {
           // Open first invalid form
           this.openFormStep(firstInvalidForm.step);
-
           evt.preventDefault();
+          this.scrollToErrors();
           return false;
         }
       },
@@ -999,6 +1048,44 @@ get_footer(); ?>
     });
 
     JoinFormApp.start();
+    
+    
+    
+    
+    
+    // Extra discount code usability tweaks.
+    $('.memberOption, .membershipOptions input:checked').click(function() {
+      if($(this).is('.businessAccount')) {
+        // Go straight to the discount field.
+        $('#member-code-yes-no .button:not(".continueBtn")').click();
+      }
+      else if($('#step2-pane').is(':hidden') || $(this).is('.membershipOptions input:checked')) {
+        // Prevent discount field from showing up initially.
+        $('#step2-subpane').hide();
+        // Show the yes/no buttons.
+        $('#member-code-yes-no').slideDown();
+      }
+    });
+    
+    // Hide/show fields if discount code yes/no selected.
+    $('#member-code-yes-no .button').click(function() {
+        if(! $(this).hasClass('continueBtn'))
+          $('#step2-subpane').slideDown();
+    });
+    
+    // Show the discount field if populated on page load.
+    if($('#s2member-pro-paypal-checkout-coupon').val()) {
+      // Wait for other animations to complete.
+      $(':animated').promise().done(function() {
+        $('#step2-subpane').show();
+      });
+    }
+    
+    // Highlight the CC type image if selected on page load.
+    $('#card-type input:checked').closest('li').addClass('active');
+    
+    // Click the correct membership option if it was chosen on the homepage.
     $('.membershipOptions input:checked').click();
+    
   });
 </script>
