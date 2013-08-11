@@ -64,9 +64,10 @@ add_action('admin_head', 'admin_css_tweaks');
  * Begin code dded by Mindbox Studios.
  **************************************************************************************************/
 
-
+/*
 //Stop wp from auto wrapping lines in p tags
 remove_filter('the_content', 'wpautop');
+*/
 
 //mailChimp contact form 7 integration
 function wpcf7_send_to_mailchimp($cfdata) {
